@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect ,useRef} from "react";
 import Background from "../component/backroundimg";
 import NavScrollExample from "../component/navbar";
 import backgroundImage from "../img/i1.jpg";
@@ -6,7 +6,7 @@ import axios from "axios";
 import Cards from "../component/card";
 function MyList() {
     const [page, SetPage] = useState(1);
-
+    const topDivRef = useRef(null);
     const [movies, SetMovie] = useState([]);
 
     const handleNext = () => {
@@ -23,6 +23,10 @@ function MyList() {
             let api = await axios.get(`${url}${type}&page=${page}`);
             // console.log(api.data.Search);
             SetMovie(api.data.Search);
+            if (topDivRef.current) {
+                topDivRef.current.scrollIntoView({ behavior: 'smooth' });
+            }
+    
         }
 
         Api();
@@ -33,7 +37,7 @@ function MyList() {
                 <div>
                     <NavScrollExample />
 
-                    <h1 style={{ color: "white", fontSize: "45px", marginLeft: "55px" , paddingTop:"75px"}}>Lists of movies</h1>
+                    <h1 style={{ color: "white", fontSize: "45px", marginLeft: "55px" , paddingTop:"75px"} }ref={topDivRef}>Lists of movies</h1>
                     <div style={{ display: "flex", alignContent: "space-between", backgroundColor: "none", justifyContent: "center", flexWrap: "wrap" }}>
                         {movies
                             // .filter((movies) => movies.Year === selectyear)

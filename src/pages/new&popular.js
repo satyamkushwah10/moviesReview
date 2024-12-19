@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect,useRef } from "react";
 import Background from "../component/backroundimg";
 import NavScrollExample from "../component/navbar";
 import backgroundImage from "../img/i1.jpg";
@@ -10,6 +10,8 @@ function NewPopular() {
     const [page, SetPage] = useState(1);
 
     const [movies, SetMovie] = useState([]);
+
+    const topDivRef = useRef(null);
 
     function handleSelectionChange(event) {
         setSelectYear(event.target.value);
@@ -30,6 +32,9 @@ function NewPopular() {
             // console.log(api.data.Search);
             SetMovie(api.data.Search);
         }
+        if (topDivRef.current) {
+            topDivRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
 
         Api();
     }, [selectyear, page]);
@@ -39,7 +44,7 @@ function NewPopular() {
                 <div>
                     <NavScrollExample />
 
-                    <h1 style={{ color: "white", fontSize: "45px", marginLeft: "55px", paddingTop:"75px" }}>New & Popular{selectyear} Releases</h1>
+                    <h1 style={{ color: "white", fontSize: "45px", marginLeft: "55px", paddingTop:"75px" }} ref={topDivRef}>New & Popular{selectyear} Releases</h1>
                     <h2 style={{ color: "white", fontSize: "25px ", marginTop: "25px", marginLeft: "55px" }}>Select Year</h2>
                     <DropdownComponent selectyear={selectyear} SetSelectYear={handleSelectionChange} />
                     <div style={{ display: "flex", alignContent: "space-between", backgroundColor: "none", justifyContent: "center", flexWrap: "wrap" }}>

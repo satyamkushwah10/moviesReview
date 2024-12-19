@@ -62,7 +62,7 @@ function NavScrollExample() {
                     {/* Navbar Toggle for mobile */}
                     <Navbar.Toggle aria-controls="navbarScroll" />
                     <Navbar.Collapse id="navbarScroll">
-                        <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: "100px" }} navbarScroll>
+                        <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: "200px" }} navbarScroll>
                             <Nav.Link href="/">Home</Nav.Link>
                             <Nav.Link href="/Movies">Movies</Nav.Link>
                             <Nav.Link href="/new&popular">New & Popular</Nav.Link>

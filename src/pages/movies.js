@@ -1,34 +1,44 @@
 import DropdownComponent from "../component/dropdown";
 import NavScrollExample from "../component/navbar";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Background from "../component/backroundimg";
 import backgroundImage from "../img/i1.jpg";
 import Cards from "../component/MovieCard";
 import axios from "axios";
 function Movies() {
     const [selectyear, setSelectYear] = useState("2024");
+    const [page,SetPage]= useState(1);
     const [movies, SetMovie] = useState([]);
-
+    const topDivRef = useRef(null);
     function handleSelectionChange(event) {
         setSelectYear(event.target.value);
+        SetPage(1);
     }
+    const handleNext = () => {
+        SetPage((prevPage) => prevPage + 1);
+    };
     useEffect(() => {
         //Runs on every render
         async function Api() {
             let url = "https://omdbapi.com/?apikey=4e9e8ed7&s=";
             let type = "movie&y=";
-            let api = await axios.get(url + type+selectyear);
+            let api = await axios.get(url + type + selectyear+`&page=${page}`);
             console.log(api.data.Search);
             SetMovie(api.data.Search);
         }
+        if (topDivRef.current) {
+            topDivRef.current.scrollIntoView({ behavior: "smooth" });
+        }
         Api();
-    });
+    }, [selectyear, page]);
     return (
         <>
             <Background imageUrl={backgroundImage}>
                 <NavScrollExample />
 
-                <h1 style={{ color: "white", fontSize: "45px", marginLeft: "55px" , paddingTop:"75px"}}>Best Reviewed Movies of {selectyear} </h1>
+                <h1 style={{ color: "white", fontSize: "45px", marginLeft: "55px", paddingTop: "75px" }} ref={topDivRef}>
+                    Best Reviewed Movies of {selectyear}
+                </h1>
                 <h2 style={{ color: "white", fontSize: "25px ", marginTop: "25px", marginLeft: "55px" }}>Select Year</h2>
 
                 <DropdownComponent selectyear={selectyear} SetSelectYear={handleSelectionChange} />
@@ -38,9 +48,24 @@ function Movies() {
                         .map((d) => {
                             return <Cards data={d} />;
                         })}
-                    {/* {movies.map((d) => {
-                        return <Cards data={d} />;
-                    })} */}
+                </div>
+                <div style={{ display: "flex", justifyContent: "space-between", padding: "35px 20px 50px 20px" }}>
+                    <button
+                        onClick={() => SetPage(page - 1)}
+                        disabled={page <= 1}
+                        style={{
+                            backgroundColor: "#383428",
+                            color: "white",
+                            width: "125px",
+                            height: "35px",
+                        }}
+                    >
+                        Previous
+                    </button>
+
+                    <button onClick={handleNext} style={{ backgroundColor: "#383428", color: "white", width: "126px", height: "35px" }}>
+                        Next Page
+                    </button>
                 </div>
             </Background>
         </>

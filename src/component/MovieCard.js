@@ -54,7 +54,7 @@ export default function Cards(props) {
                         overflow:"auto",
                         scrollbarWidth:"none"
                         }} onClick={handleShowModal}>
-                        <img src={props.data.Poster} alt={props.data.Title} style={{ width: "100%",height:"350px" }} />
+                        <img src={props.data.Poster} alt={props.data.Title} style={{ width: "100%",height:"375px" }} />
                         <div className="container" style={{backgroundColor:"black",color:"white"}}>
                             <h4>
                                 <b>{props.data.Title}</b>

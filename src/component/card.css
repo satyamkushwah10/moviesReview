@@ -1,0 +1,40 @@
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    width: 300px;
+    height: auto; 
+    /* margin-left: 55px; */
+    margin: 20px 0px 20px 60px;
+  }
+  img{
+    width: "500px";
+    height:"400px";
+    padding: "0px";
+    object-fit: cover; /* Ensures the image covers the area without distortion */ 
+    display: block;
+  }
+  .card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    transform: scale(1.1);
+  }
+ .container {
+    padding: 2px 16px;
+    background-color: white;
+    color: #800000;
+    border-color: black;
+    border-width: 10px;
+  } 
+
+  @media only screen and (max-width: 500px) {
+    .card {
+      width: 300px;
+      height: auto; 
+      margin-left: 20px;
+      margin-top: 20px;
+    }
+    img{
+      padding: "0px";
+      width: "300px";
+      height:"350px";
+    }
+  }
